@@ -1,0 +1,89 @@
+
+/* General Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #E6ECF0;
+    color: #14171A;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #1DA1F2;
+    border-bottom: 1px solid #CCCCCC;
+    color: white;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+}
+
+.navbar a:hover {
+    background-color: #1485CC;
+}
+
+/* Buttons */
+button {
+    background-color: #1DA1F2;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1485CC;
+}
+
+/* Feed */
+.feed {
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.feed-post {
+    border-bottom: 1px solid #E1E8ED;
+    padding: 15px 0;
+}
+
+.feed-post:last-child {
+    border-bottom: none;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    background-color: white;
+    height: 100%;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #F5F8FA;
+    color: #657786;
+    font-size: 12px;
+}
