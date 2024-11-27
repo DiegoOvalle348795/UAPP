@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2024 a las 22:31:41
+-- Tiempo de generación: 27-11-2024 a las 11:02:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,6 +39,7 @@ CREATE TABLE `friends` (
 
 INSERT INTO `friends` (`my_friend_id`, `my_id`, `friends_id`) VALUES
 (1, 10, 0),
+(2, 1, 0),
 (11, 12, 0),
 (12, 13, 0),
 (13, 11, 0),
@@ -54,9 +55,28 @@ CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL,
   `group_name` varchar(255) NOT NULL,
   `group_code` varchar(50) NOT NULL,
-  `created_by` int(11) NOT NULL,
+  `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `groups`
+--
+
+INSERT INTO `groups` (`group_id`, `group_name`, `group_code`, `created_by`, `created_at`) VALUES
+(1, 'mates', '1234', 1, '2024-11-27 04:18:15'),
+(4, 'matematicas', '0a4cb2', 1, '2024-11-27 05:16:41'),
+(7, 'ciencias', '65e2f2', 1, '2024-11-27 05:20:23'),
+(8, 'tilineitor', '392bfe', 1, '2024-11-27 05:24:26'),
+(12, 'fierro', '', NULL, '2024-11-27 08:31:30'),
+(14, 'fierro', 'group_6746dbbc70a0d', NULL, '2024-11-27 08:43:40'),
+(15, 'puyipuyi', 'group_6746dcb260a22', NULL, '2024-11-27 08:47:46'),
+(16, 'qwerty', 'group_6746e51b46e6f', NULL, '2024-11-27 09:23:39'),
+(17, 'qwerty', 'group_6746e574ce6fe', NULL, '2024-11-27 09:25:08'),
+(18, 'qwerty', 'group_6746e5799157e', NULL, '2024-11-27 09:25:13'),
+(19, 'fierro', 'cc0588', 1, '2024-11-27 09:45:14'),
+(20, 'ulala', 'b8038e', 1, '2024-11-27 09:51:40'),
+(22, 'ulala', 'a8548e', 1, '2024-11-27 09:53:49');
 
 -- --------------------------------------------------------
 
@@ -65,10 +85,18 @@ CREATE TABLE `groups` (
 --
 
 CREATE TABLE `group_members` (
-  `id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `member_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `group_members`
+--
+
+INSERT INTO `group_members` (`group_id`, `member_id`) VALUES
+(1, 1),
+(8, 15),
+(22, 1);
 
 -- --------------------------------------------------------
 
@@ -107,16 +135,17 @@ CREATE TABLE `members` (
   `mobile` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
   `work` varchar(100) NOT NULL,
-  `religion` varchar(100) NOT NULL
+  `religion` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `members`
 --
 
-INSERT INTO `members` (`member_id`, `firstname`, `lastname`, `middlename`, `address`, `email`, `contact_no`, `age`, `gender`, `username`, `password`, `image`, `birthdate`, `mobile`, `status`, `work`, `religion`) VALUES
-(14, 'Diego Jassiel', 'Ovalle Reynoso', '', '', '', '', 0, 'Hombre', 'Octoño', '1234', 'images/dugong.jpg', '', '', '', '', ''),
-(15, 'admin', 'admin', '', 'calle 5 de mayo #703', '', '', 0, 'Hombre', 'admin', 'admin', 'images/No_Photo_Available.jpg', 'ayer', '6143572030', 'Chihuahua', 'no', 'pastafarismo');
+INSERT INTO `members` (`member_id`, `firstname`, `lastname`, `middlename`, `address`, `email`, `contact_no`, `age`, `gender`, `username`, `password`, `image`, `birthdate`, `mobile`, `status`, `work`, `religion`, `user_id`) VALUES
+(1, 'admin', 'admin', '', 'calle 5 de mayo #703', '', '', 0, 'Hombre', 'admin', 'admin', 'images/468390772_1003099705184871_43663667982092934_n.jpg', 'ayer', '6143572030', 'Chihuahua', 'no', 'pastafarismo', 1),
+(2, 'Diego Jassiel', 'Ovalle Reynoso', '', '', '', '', 0, 'Hombre', 'Octoño', '1234', 'images/dugong.jpg', '', '', '', '', '', 2);
 
 -- --------------------------------------------------------
 
@@ -138,7 +167,8 @@ CREATE TABLE `message` (
 
 INSERT INTO `message` (`message_id`, `sender_id`, `reciever_id`, `content`, `date_sended`) VALUES
 (8, 14, 15, 'hola naco', '2024-11-24 13:34:11'),
-(9, 15, 14, 'apoco si muy vergas wey', '2024-11-24 13:34:41');
+(9, 15, 14, 'apoco si muy vergas wey', '2024-11-24 13:34:41'),
+(10, 1, 0, '', '2024-11-27 04:01:53');
 
 -- --------------------------------------------------------
 
@@ -169,7 +199,9 @@ CREATE TABLE `photos` (
 --
 
 INSERT INTO `photos` (`photos_id`, `location`, `member_id`) VALUES
-(8, 'upload/462630338_122144515550313623_3154463726881634674_n.jpg', 15);
+(8, 'upload/462630338_122144515550313623_3154463726881634674_n.jpg', 15),
+(9, 'upload/depositphotos_69729769-stock-photo-funny-old-lady-listening-music.jpg', 15),
+(10, 'upload/462630338_122144515550313623_3154463726881634674_n.jpg', 15);
 
 -- --------------------------------------------------------
 
@@ -193,7 +225,10 @@ INSERT INTO `post` (`post_id`, `member_id`, `content`, `date_posted`) VALUES
 (12, 14, '', '2024-11-24 13:32:32'),
 (13, 14, '', '2024-11-24 13:32:38'),
 (14, 14, '', '2024-11-24 13:44:44'),
-(15, 14, 'publicacion de ayuda', '2024-11-24 15:29:16');
+(15, 14, 'publicacion de ayuda', '2024-11-24 15:29:16'),
+(16, 15, 'purip purip', '2024-11-26 11:14:39'),
+(17, 15, 'hola', '2024-11-27 00:40:02'),
+(18, 1, 'hola\r\n', '2024-11-27 02:48:47');
 
 -- --------------------------------------------------------
 
@@ -256,16 +291,13 @@ ALTER TABLE `friends`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`group_id`),
-  ADD UNIQUE KEY `group_code` (`group_code`),
-  ADD KEY `created_by` (`created_by`);
+  ADD UNIQUE KEY `group_code` (`group_code`);
 
 --
 -- Indices de la tabla `group_members`
 --
 ALTER TABLE `group_members`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `group_id` (`group_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`group_id`);
 
 --
 -- Indices de la tabla `group_messages`
@@ -279,7 +311,8 @@ ALTER TABLE `group_messages`
 -- Indices de la tabla `members`
 --
 ALTER TABLE `members`
-  ADD PRIMARY KEY (`member_id`);
+  ADD PRIMARY KEY (`member_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indices de la tabla `message`
@@ -337,13 +370,7 @@ ALTER TABLE `friends`
 -- AUTO_INCREMENT de la tabla `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `group_members`
---
-ALTER TABLE `group_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `group_messages`
@@ -361,7 +388,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT de la tabla `message`
 --
 ALTER TABLE `message`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `note`
@@ -373,13 +400,13 @@ ALTER TABLE `note`
 -- AUTO_INCREMENT de la tabla `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `photos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `photos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `schedule`
@@ -404,17 +431,10 @@ ALTER TABLE `users`
 --
 
 --
--- Filtros para la tabla `groups`
---
-ALTER TABLE `groups`
-  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
-
---
 -- Filtros para la tabla `group_members`
 --
 ALTER TABLE `group_members`
-  ADD CONSTRAINT `group_members_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `group_members_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `group_members_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `group_messages`
